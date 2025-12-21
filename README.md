@@ -1,270 +1,243 @@
-# Claude Code Skills Collection
+# Claude Code Skills
 
-**154+ methodology skills organized by function and domain.**
+**154+ methodology skills providing systematic approaches to development workflows and best practices.**
 
 ## Overview
 
-Skills provide **methodology** (HOW to approach problems), not execution:
-- Auto-activate based on context/triggers
-- Guide Claude's approach to tasks
-- No model/tool assignments needed
-- Already optimally structured
+Skills are reusable methodologies that guide how Claude approaches problems. They auto-activate based on context and provide frameworks, patterns, and best practices without executing code directly.
 
-## Quick Install
+**Key Concept:** Skills provide **methodology** (HOW), Agents provide **execution** (WHO).
+
+## Quick Start
 
 ```bash
 # Install all skills
-cp -r */ ~/.claude/skills/
+git clone https://github.com/I-Onlabs/claude-code-skills.git
+cp -r claude-code-skills/*/ ~/.claude/skills/
 
-# Install specific category
-cp -r workflow/* ~/.claude/skills/
-cp -r patterns/* ~/.claude/skills/
+# Install specific skills
+cp -r claude-code-skills/systematic-debugging ~/.claude/skills/
+cp -r claude-code-skills/api-design-patterns ~/.claude/skills/
 ```
 
 ## Skills by Category
 
-### 🔄 Workflow Skills (Core Methodology)
+### 🔄 Workflow Skills
 
-**Systematic processes for development workflows**
+**Systematic processes for development tasks**
 
-- **systematic-debugging** - 4-phase debugging framework
-  - Phase 1: Root Cause Investigation
-  - Phase 2: Pattern Analysis
-  - Phase 3: Hypothesis Testing
-  - Phase 4: Implementation
-
-- **test-driven-development** - RED-GREEN-REFACTOR cycle
-  - Write failing test first
-  - Make it pass
-  - Refactor for quality
-
-- **pipeline-pm-spec** - INVEST user stories
-- **pipeline-arch-review** - Architecture Decision Records
-- **pipeline-implement** - TDD-driven implementation
-- **pipeline-test-verify** - Comprehensive quality gates
-
-- **task-tracking** - Auto todo lists for 3+ step tasks
-- **project-context** - Load project conventions
-- **quality-gates** - Pre-completion verification
-- **verification-before-completion** - Prove success before claiming done
+| Skill | Purpose | When It Activates |
+|-------|---------|------------------|
+| **systematic-debugging** | 4-phase debugging framework | Bug fixing, troubleshooting |
+| **test-driven-development** | RED-GREEN-REFACTOR cycle | Writing tests, TDD approach |
+| **task-tracking** | Auto todo management | Complex multi-step tasks (3+) |
+| **quality-gates** | Pre-completion verification | Before claiming work complete |
+| **verification-before-completion** | Prove success with evidence | Final validation |
+| **pipeline-pm-spec** | INVEST user stories | Feature planning |
+| **pipeline-arch-review** | Architecture Decision Records | Design decisions |
+| **pipeline-implement** | TDD-driven implementation | Feature development |
+| **pipeline-test-verify** | Comprehensive quality gates | Testing workflows |
 
 ### 📐 Pattern Libraries
 
 **Design patterns and best practices**
 
-- **api-design-patterns** - 5-layer API pattern (Models/Services/Routers/Tests/Docs)
-- **python-best-practices** - Modern Python 3.11+ patterns
-- **code-refactor** - Bulk refactoring operations
-- **defense-in-depth** - Multi-layer validation
-- **intelligent-gate** - Decision framework for risky operations
-- **token-optimization** - Efficiency patterns
+| Skill | Purpose | Use For |
+|-------|---------|---------|
+| **api-design-patterns** | 5-layer API pattern | REST/GraphQL API structure |
+| **python-best-practices** | Modern Python 3.11+ patterns | Pythonic code |
+| **defense-in-depth** | Multi-layer validation | Security, data integrity |
+| **intelligent-gate** | Risk assessment framework | Risky operations |
+| **token-optimization** | Efficiency patterns | Cost optimization |
+| **code-refactor** | Bulk refactoring patterns | Large-scale changes |
 
 ### 🏗️ Frameworks & Platforms
 
 **Framework-specific guidance**
 
 **AWS:**
-- aws-agentic-ai - Bedrock AgentCore
-- aws-cdk-development - Infrastructure as Code
-- aws-cost-operations - Cost optimization
-- aws-serverless-eda - Serverless patterns
+- `aws-agentic-ai` - Bedrock AgentCore (Gateway, Runtime, Memory, Identity)
+- `aws-cdk-development` - Infrastructure as Code with CDK
+- `aws-cost-operations` - Cost optimization and monitoring
+- `aws-serverless-eda` - Serverless patterns (Lambda, API Gateway, EventBridge)
+
+**Kubernetes:**
+- `kubernetes-patterns` - K8s best practices, deployment patterns
 
 **Web Frameworks:**
-- react-patterns - React 18+ patterns
-- nextjs-patterns - Next.js 14+ App Router
-- vue-patterns - Vue 3 composition
-
-**Others:**
-- kubernetes-patterns - K8s best practices
-- docker-patterns - Container optimization
+- React, Next.js, Vue patterns
+- Component architecture, state management
 
 ### 💻 Language-Specific
 
-**Language best practices and idioms**
+**Language idioms and best practices**
 
-- **python-pro** - Python 3.11+ (type hints, async, data science)
-- **typescript-expert** - TypeScript patterns
-- **go-expert** - Go idioms
-- **rust-expert** - Rust ownership patterns
-- **java-expert** - Modern Java
+- **Python** - Type hints, async/await, data science
+- **TypeScript** - Type safety, modern patterns
+- **Go** - Concurrency, interfaces, idiomatic Go
+- **Rust** - Ownership, lifetimes, memory safety
+- **Java** - Modern Java features
 
-### 🤖 Automation & Productivity
+### 🤖 Automation & Tools
 
-**Task automation and efficiency**
+**Productivity and integration**
 
-- **task-tracking** - Auto todo management
-- **code-execution** - Local Python execution
-- **local-models** - Ollama integration guide
-- **escalation-reasoning** - 5-tier reasoning escalation (/think, /megathink, etc.)
-- **intelligent-decision-making** - Multi-model consensus
+| Skill | Purpose |
+|-------|---------|
+| **local-models** | Ollama integration guide (gpt-oss, qwen3-coder) |
+| **escalation-reasoning** | 5-tier reasoning (/think, /megathink, /ultrathink) |
+| **intelligent-decision-making** | Multi-model consensus |
+| **code-execution** | Local Python execution for cost savings |
+| **github-code-review** | GitHub PR workflows |
+| **playwright-skill** | Browser automation |
 
 ### 🎯 Domain-Specific
 
-**Specialized domain expertise**
+**Specialized expertise by domain**
 
 **Security:**
-- senior-security - Security expert methodology
-- security-patterns - OWASP compliance
+- Security patterns, OWASP compliance, vulnerability scanning
 
 **Performance:**
-- performance-analysis - Profiling and optimization
-- token-optimization - Cost efficiency
+- Profiling, optimization, caching strategies
 
 **Data:**
-- agentdb-* - Vector search, memory patterns
-- data-engineering - ETL pipelines
+- `agentdb-*` - Vector search, memory patterns, learning algorithms
+- Data engineering - ETL pipelines, schema design
 
 **DevOps:**
-- devops-patterns - CI/CD best practices
-- kubernetes-patterns - Container orchestration
+- CI/CD patterns, container orchestration
 
 **Quality:**
-- code-reviewer - Review methodology
-- qa-expert - Testing strategies
-
-### 🔧 Tools & Integrations
-
-**Tool-specific guidance**
-
-- **local-models** - Ollama integration (gpt-oss, qwen3-coder, etc.)
-- **github-code-review** - GitHub PR workflows
-- **playwright-skill** - Browser automation
-- **chrome-devtools** - Web debugging
+- Code review methodology, testing strategies
 
 ### 🎨 Creative & Content
 
 **Content creation and design**
 
-- **content-creator** - SEO-optimized marketing
-- **algorithmic-art** - Generative art with p5.js
-- **canvas-design** - Visual design
-- **architecture-diagram-creator** - System diagrams
+- `content-creator` - SEO-optimized marketing content
+- `algorithmic-art` - Generative art with p5.js
+- `canvas-design` - Visual design
+- `architecture-diagram-creator` - System architecture diagrams
+- `dashboard-creator` - KPI dashboards
 
 ### 📊 Data & Analytics
 
-**Data processing and analysis**
+**Data processing and visualization**
 
-- **agentdb-vector-search** - Semantic search
-- **agentdb-memory-patterns** - Persistent memory
-- **csv-data-summarizer** - Quick data analysis
-- **dashboard-creator** - KPI dashboards
+- `agentdb-vector-search` - Semantic search and embeddings
+- `agentdb-memory-patterns` - Persistent memory for agents
+- `csv-data-summarizer` - Quick data analysis
+- `meeting-insights-analyzer` - Extract insights from transcripts
 
-### 🚀 Advanced Workflows
+### 🚀 Advanced Orchestration
 
-**Complex multi-step workflows**
+**Complex multi-phase workflows**
 
-- **vibe-coding-coordinator** - 15-20min preparation phases
-- **bootstrap-orchestrator** - Project initialization
-- **task-orchestrator** - Multi-task coordination
-- **hoa-orchestrator** - Quality-gated workflows (G0→G1→S→G2→G3→G4→M)
-
-## Skill Structure
-
-Each skill has this format:
-
-```yaml
----
-name: skill-name
-description: When and how to use this skill
-triggers:                # Auto-activation keywords
-  - keyword1
-  - keyword2
----
-
-# Skill methodology content
-```
+| Skill | Phases | Use For |
+|-------|--------|---------|
+| **hoa-orchestrator** | G0→G1→S→G2→G3→G4→M | Quality-gated deliverables with formal verification |
+| **vibe-coding-coordinator** | Preparation phase | Understanding vague requests |
+| **bootstrap-orchestrator** | Auto-configuration | New project initialization |
+| **task-orchestrator** | Task breakdown | Complex multi-task features |
 
 ## How Skills Work
 
 ### Auto-Activation
 
 Skills activate automatically based on:
-- **Triggers**: Keywords in your request
-- **Context**: Type of task being performed
-- **Description**: Matching task patterns
+- **Keywords** in your request (triggers)
+- **Task context** (debugging, testing, API design, etc.)
+- **Description matching** (similar task patterns)
 
-**Example:**
+**Examples:**
+
 ```
 You: "Fix this bug"
 → systematic-debugging auto-activates
-→ Guides Claude through 4-phase framework
+→ Guides through 4-phase framework
+
+You: "Create an API endpoint"
+→ api-design-patterns auto-activates
+→ Provides 5-layer structure
+
+You: "This task is complex"
+→ task-tracking auto-activates
+→ Creates todo list for tracking
 ```
 
-### No Model Assignment
+### Skill Structure
 
-Skills guide the **current Claude model**, they don't execute independently:
-- Agents = WHO executes (use models/tools)
-- Skills = HOW to approach (methodology only)
+Each skill directory contains:
 
-### Already Optimal
+```
+skill-name/
+├── SKILL.md          # Methodology and usage
+├── CLAUDE.md         # (Optional) Additional context
+└── examples/         # (Optional) Example files
+```
 
-Skills don't need the agent enhancements because:
-- Workflow skills already have systematic patterns
-- Pattern skills are reference libraries
-- Tool skills are decision frameworks
-- No execution = no model/tool needs
+**SKILL.md frontmatter:**
 
-## Skill Categories Explained
+```yaml
+---
+name: skill-name
+description: Brief description of when/how to use
+triggers:
+  - keyword1
+  - keyword2
+  - keyword3
+---
 
-### Workflow vs Patterns
+# Methodology content...
+```
 
-**Workflow Skills:**
-- Sequential processes
-- Quality gates
-- Already have ReAct-like patterns
-- Examples: systematic-debugging, TDD, pipelines
+## Commonly Used Skills
 
-**Pattern Skills:**
-- Reference libraries
-- Best practices collections
-- No workflow needed
-- Examples: api-design-patterns, python-best-practices
+### For Debugging
+1. **systematic-debugging** - 4-phase root cause analysis
+2. **root-cause-tracing** - Deep investigation patterns
+3. **error-detective** (agent) - Automated debugging
 
-### When to Use Which
+### For New Features
+1. **task-tracking** - Break into steps
+2. **pipeline-pm-spec** - Write user stories
+3. **pipeline-implement** - TDD implementation
+4. **pipeline-test-verify** - Quality verification
 
-| Your Task | Skill Activates | Why |
-|-----------|-----------------|-----|
-| Fix bug | systematic-debugging | 4-phase root cause framework |
-| New feature | pipeline-pm-spec → pipeline-implement | Sequential development workflow |
-| Write test | test-driven-development | RED-GREEN-REFACTOR cycle |
-| API design | api-design-patterns | 5-layer reference pattern |
-| Python code | python-best-practices | Pythonic idioms guide |
-| Complex task | task-tracking | Auto todo management |
+### For APIs
+1. **api-design-patterns** - 5-layer structure
+2. **test-driven-development** - Test-first approach
+3. **quality-gates** - Pre-deployment checks
 
-## Best Practices
+### For Quality
+1. **verification-before-completion** - Prove success
+2. **quality-gates** - Systematic verification
+3. **code-reviewer** (agent) - Automated review
 
-### Skill Organization
-
-1. **Workflow first** - Process-oriented skills
-2. **Patterns second** - Reference libraries
-3. **Domain third** - Specialized expertise
-4. **Tools last** - Integration guides
-
-### Naming Conventions
-
-- **Workflow**: `systematic-*`, `pipeline-*`, `*-workflow`
-- **Patterns**: `*-patterns`, `*-best-practices`
-- **Domain**: `*-expert`, `senior-*`
-- **Tools**: `*-skill`, `*-integration`
-
-## Sync from Local
+## Keeping Updated
 
 ```bash
-# Update from your active skills
+# Sync latest changes from local skills
+cd claude-code-skills/
 ./sync-from-local.sh
 
-# This copies from ~/.claude/skills/ to here
+# Commit and push
+git add .
+git commit -m "Update skills from local"
+git push
 ```
 
 ## Creating New Skills
 
-1. Create `my-skill/SKILL.md`
-2. Add YAML frontmatter with triggers
+1. Create skill directory: `mkdir my-skill`
+2. Create `my-skill/SKILL.md` with YAML frontmatter
 3. Document methodology (not implementation)
-4. Test auto-activation
-5. Submit PR
+4. Add clear triggers for auto-activation
+5. Test with real scenarios
 
-Template:
+**Template:**
+
 ```yaml
 ---
 name: my-skill
@@ -279,29 +252,29 @@ triggers:
 ## Purpose
 What this skill helps with
 
-## When to Activate
-Specific scenarios
+## When to Use
+Specific scenarios where this applies
 
 ## Methodology
-Step-by-step approach
+Step-by-step approach to apply
 ```
 
 ## Contributing
 
-1. Skills provide methodology, not execution
+Contributions welcome! When adding or modifying skills:
+
+1. Skills provide methodology, not code execution
 2. Use clear triggers for auto-activation
-3. Document when/how to use
-4. Test with real scenarios
-5. Keep skills focused (single responsibility)
+3. Document when and how to use
+4. Keep focused on single responsibility
+5. Test with realistic scenarios
 
 ## License
 
-MIT License - Free to use, modify, and distribute
+MIT License - See [LICENSE](LICENSE) for details
 
 ---
 
-**Status:** Production-ready skill library
-**Skills:** 154+ organized by category
-**Auto-Activation:** Based on triggers and context
-**Purpose:** Methodology guidance (not execution)
-**Quality:** Workflow skills have systematic patterns
+**Repository:** 154+ methodology skills
+**Categories:** Workflow • Patterns • Frameworks • Languages • Tools • Domains • Creative • Data • Orchestration
+**Activation:** Automatic based on triggers and context
