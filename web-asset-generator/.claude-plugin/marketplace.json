@@ -1,0 +1,44 @@
+{
+  "name": "web-asset-generator-marketplace",
+  "description": "Official marketplace for Web Asset Generator - A Claude Code plugin for generating favicons, app icons, and social media images",
+  "owner": {
+    "name": "Alon Wolenitz",
+    "url": "https://github.com/alonw0/web-asset-generator"
+  },
+  "plugins": [
+    {
+      "name": "web-asset-generator",
+      "description": "Generate favicons, app icons, and social media images from logos, text, or emojis. Features emoji suggestions, WCAG validation, and automatic framework integration for Next.js, Astro, SvelteKit, and more.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Alon Wolenitz",
+        "url": "https://github.com/alonw0/web-asset-generator"
+      },
+      "source": {
+        "source": "github",
+        "repo": "alonw0/web-asset-generator"
+      },
+      "category": "productivity",
+      "tags": [
+        "favicon",
+        "icons",
+        "open-graph",
+        "social-media",
+        "images",
+        "web-assets",
+        "pwa",
+        "emoji",
+        "validation",
+        "accessibility",
+        "wcag",
+        "next-js",
+        "astro",
+        "sveltekit"
+      ],
+      "license": "MIT",
+      "homepage": "https://github.com/alonw0/web-asset-generator",
+      "repository": "https://github.com/alonw0/web-asset-generator.git",
+      "strict": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+# Sensitive files
+.env
+.env.local
+*.key
+*.pem
+secrets/
+credentials/
+
+# Logs
+*.log
+logs/
+*.jsonl
+
+# OS files
+.DS_Store
+Thumbs.db
+.directory
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Backups
+*.backup
+*.bak
+backups/
+
+# Test files
+test-*/
+tmp/
