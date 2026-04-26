@@ -1,27 +1,49 @@
 ---
 name: dashboard-creator
-description: Create HTML dashboards with KPI metric cards, bar/pie/line charts, progress indicators, and data visualizations. Use when users request dashboards, metrics displays, KPI visualizations, data charts, or monitoring interfaces.
+description: Create HTML dashboards with KPI cards, bar/pie/line charts, progress indicators, and data tables. Use when asked to "create dashboard", "build KPI dashboard", "generate metrics visualization", "make analytics dashboard", "show performance dashboard", or "render data visualization as HTML".
 ---
 
 # Dashboard Creator
 
-Create interactive HTML dashboards with KPI cards and charts.
+Create interactive HTML dashboards with KPI cards and SVG charts.
+
+## Contents
+
+- [When to Use](#when-to-use)
+- [Components](#components)
+- [Workflow](#workflow)
+- [HTML Skeleton](#html-skeleton)
+- [KPI Card Pattern](#kpi-card-pattern)
+- [SVG Bar Chart Pattern](#svg-bar-chart-pattern)
+- [Verification](#verification)
+- [References](#references)
 
 ## When to Use
 
 - "Create dashboard for [metrics]"
 - "Show KPI visualization"
-- "Generate performance dashboard"
-- "Make analytics dashboard with charts"
+- "Generate performance / analytics / monitoring dashboard"
+- "Make HTML report with charts"
 
 ## Components
 
-1. **KPI Cards**: metric name, value, change %, trend icon
-2. **Charts**: bar/pie/line using SVG or CSS
-3. **Progress Bars**: completion indicators
-4. **Data Tables**: tabular data display
+1. **KPI cards** — metric name, value, change %, trend icon
+2. **Charts** — bar / pie / line as inline SVG (no external JS)
+3. **Progress bars** — completion indicators
+4. **Data tables** — tabular display
 
-## HTML Structure
+## Workflow
+
+1. Extract metrics and structure the data
+2. Build KPI cards grid
+3. Generate SVG charts for each series
+4. Add progress indicators where applicable
+5. Write to `[name]-dashboard.html`
+6. Verify (see [Verification](#verification))
+
+Use semantic colors: green = positive, red = negative, blue = neutral.
+
+## HTML Skeleton
 
 ```html
 <!DOCTYPE html>
@@ -39,9 +61,7 @@ Create interactive HTML dashboards with KPI cards and charts.
 <body>
   <h1>[Dashboard Name]</h1>
   <div class="grid">
-    <!-- KPI cards -->
-    <!-- Charts -->
-    <!-- Progress bars -->
+    <!-- KPI cards, charts, progress bars -->
   </div>
 </body>
 </html>
@@ -57,22 +77,28 @@ Create interactive HTML dashboards with KPI cards and charts.
 </div>
 ```
 
-## Chart Pattern (SVG Bar Chart)
+## SVG Bar Chart Pattern
 
 ```html
 <svg viewBox="0 0 400 300">
   <rect x="50" y="100" width="40" height="150" fill="#4299e1"/>
   <rect x="120" y="80" width="40" height="170" fill="#48bb78"/>
-  <!-- bars for each data point -->
 </svg>
 ```
 
-## Workflow
+## Verification
 
-1. Extract metrics and data
-2. Create KPI cards grid
-3. Generate charts (bar/pie/line) as SVG
-4. Add progress indicators
-5. Write to `[name]-dashboard.html`
+After writing the HTML file, confirm success by checking all of these:
 
-Use semantic colors: green (positive), red (negative), blue (neutral).
+- [ ] File exists at the target path and is non-empty
+- [ ] Open in a browser — page renders without console errors
+- [ ] Every KPI card shows a value (no empty `[PLACEHOLDER]` strings left in)
+- [ ] Every SVG chart has bars/slices/lines proportional to the data (not all the same size)
+- [ ] Trend colors match direction (green for positive deltas, red for negative)
+
+If any check fails, fix before reporting completion.
+
+## References
+
+- [`references/design_patterns.md`](references/design_patterns.md) — color system, typography, component patterns
+- [`references/svg_library.md`](references/svg_library.md) — SVG shapes, gradients, chart techniques
