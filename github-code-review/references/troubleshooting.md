@@ -47,11 +47,17 @@ Beyond the `swarm-management.md` HMAC verification:
 
 ## Security checklist
 
-Before enabling automated review on a public repo:
+Before enabling automated review on a public repo. Items marked **[GH]** are from GitHub's official [webhook validation](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries) and [best-practices](https://docs.github.com/en/webhooks/using-webhooks/best-practices-for-using-webhooks) docs:
 
 - [ ] GitHub token scoped to a single repository
-- [ ] Webhook signatures verified (`x-hub-signature-256`, see `swarm-management.md`)
-- [ ] `GITHUB_WEBHOOK_SECRET` from environment, not committed to repo
+- [ ] **[GH]** Webhook signatures verified via `X-Hub-Signature-256` with HMAC-SHA256
+- [ ] **[GH]** Signature comparison uses `crypto.timingSafeEqual` (or equivalent constant-time compare) — never `==`
+- [ ] **[GH]** `X-GitHub-Delivery` header used for replay/idempotency — back the dedup cache with persistent storage in production
+- [ ] **[GH]** Webhook handler responds within 10 seconds (dispatch real work async after the 2XX)
+- [ ] **[GH]** POST-only enforcement on the webhook endpoint
+- [ ] **[GH]** Optional: IP allowlist against the ranges from [`https://api.github.com/meta`](https://api.github.com/meta)
+- [ ] `GITHUB_WEBHOOK_SECRET` from environment, not committed to repo; rotated periodically
+- [ ] Payload size cap enforced (GitHub max is 25 MB; reject anything larger)
 - [ ] Command-injection protection — never interpolate PR content into shell strings
 - [ ] Fork-PR handling explicit (block, sandbox, or accept with reduced agent set)
 - [ ] Rate limiting configured for webhook endpoint
