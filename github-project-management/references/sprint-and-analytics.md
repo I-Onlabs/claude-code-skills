@@ -1,5 +1,17 @@
 # Sprint Planning & Analytics
 
+## What gets tracked
+
+Across the commands in this file, the skill captures:
+
+- **Per-issue:** time-to-close, agent efficiency, subtask completion rate
+- **Per-sprint:** velocity (story points / issues per sprint), burndown, blockers
+- **Per-board:** average cycle time, throughput, work-in-progress counts, blocked-time percentage, first-time-pass rate
+- **Per-team / per-member:** velocity, quality, collaboration signals (anonymous mode supported)
+- **Cross-cutting:** integration success rates between linked PRs/issues, defect density
+
+These are produced by `board-analytics`, `board-progress`, `board-kpis`, `team-metrics`, `issue-metrics`, and `effectiveness` — each documented below with its specific flag set.
+
 ## Sprint Management
 
 ```bash

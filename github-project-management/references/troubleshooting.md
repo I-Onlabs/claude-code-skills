@@ -59,8 +59,11 @@ npx ruv-swarm github board-recover \
 
 ## Security Checklist
 
-- [ ] Validate user permissions before running issue-comment commands
-- [ ] Rate-limit comment-command handlers to prevent spam
-- [ ] Audit-log all swarm operations (issue + board mutations)
-- [ ] Respect private-repo scoping in cross-repo / cross-org workflows
-- [ ] Verify webhook signatures (`x-hub-signature-256`) for real-time sync
+The original skill called these out as six categories — Command Authorization, Rate Limiting, Audit Logging, Data Privacy, Access Control, Webhook Security. Restated as concrete checks:
+
+- [ ] **Command Authorization** — validate user permissions before running issue-comment commands (`/swarm assign`, `/swarm decompose`, etc.)
+- [ ] **Rate Limiting** — cap comment-command handler invocations per user/hour to prevent spam
+- [ ] **Audit Logging** — log all swarm mutations (issue edits, board moves) with actor + timestamp
+- [ ] **Data Privacy** — respect private-repo scoping; never leak private-repo data through cross-repo / cross-org workflows
+- [ ] **Access Control** — project-board API tokens scoped to read+write only on the boards in use, not org-wide; review on a schedule
+- [ ] **Webhook Security** — verify `x-hub-signature-256`; rotate `GITHUB_WEBHOOK_SECRET` periodically; reject events from unverified senders

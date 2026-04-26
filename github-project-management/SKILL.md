@@ -107,8 +107,26 @@ After running a workflow, confirm:
 
 - [`references/issue-management.md`](references/issue-management.md) — creation, batch, issue→swarm, triage, decomposition, progress, stale management
 - [`references/board-automation.md`](references/board-automation.md) — board init, mapping config, sync, smart card management, views, dashboards
-- [`references/sprint-and-analytics.md`](references/sprint-and-analytics.md) — sprint setup, kanban/scrum, analytics, KPIs, release planning
+- [`references/sprint-and-analytics.md`](references/sprint-and-analytics.md) — what gets tracked, sprint setup, kanban/scrum, analytics, KPIs, release planning
 - [`references/swarm-topologies.md`](references/swarm-topologies.md) — multi-board sync, dependencies/epics, cross-repo, team collab, topology guide
 - [`references/templates.md`](references/templates.md) — issue templates (integration / bug / feature / swarm task)
-- [`references/automation-patterns.md`](references/automation-patterns.md) — GitHub Actions workflow, specialised swarms, complete worked example, command quick-reference
-- [`references/troubleshooting.md`](references/troubleshooting.md) — sync, performance, recovery, GitHub constraints, required permissions, security checklist
+- [`references/automation-patterns.md`](references/automation-patterns.md) — GitHub Actions workflow, specialised swarms, operational guidance, complete worked example, command quick-reference
+- [`references/troubleshooting.md`](references/troubleshooting.md) — sync, performance, recovery, GitHub constraints, required permissions, security checklist (Command Authorization, Rate Limiting, Audit Logging, Data Privacy, Access Control, Webhook Security)
+
+## Related Skills
+
+- `github-pr-workflow` — link issues to pull requests automatically
+- `github-release-management` — coordinate release issues and milestones
+- `sparc-orchestrator` — complex project coordination workflows
+- `sparc-tester` — automated testing workflows for issues
+
+## External Documentation
+
+- [GitHub CLI manual](https://cli.github.com/manual/)
+- [GitHub Projects (v2) docs](https://docs.github.com/en/issues/planning-and-tracking-with-projects)
+- [ruv-swarm](https://github.com/ruvnet/ruv-swarm)
+- [claude-flow](https://github.com/ruvnet/claude-flow)
+
+---
+
+*Maintained by Claude Code. Version 2.1.0.*

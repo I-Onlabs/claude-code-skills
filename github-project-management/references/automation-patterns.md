@@ -114,6 +114,14 @@ npx ruv-swarm github issue-progress "$ISSUE_NUM" \
   --notify-on-completion
 ```
 
+## Operational guidance
+
+A few decisions worth making once per project, not per issue:
+
+- **Initialise the swarm only for issues large enough to need decomposition.** A 5-line bug fix doesn't need a swarm; a multi-component epic does. The cost of swarm coordination is wasted on trivial work.
+- **Use the swarm's memory store for progress coordination across long-running issues.** Don't re-derive state from issue comments on every poll — write to memory once, read many times. See the `mcp__claude-flow__task_orchestrate` calls in [`issue-management.md`](issue-management.md).
+- **Validate bidirectional sync at least once after `board-init`.** Create a test card, move it on the board, confirm the linked issue picks up the new status. Sync misconfigurations silently drift state until you notice cards in the wrong column at the next standup.
+
 ## Quick Reference
 
 ```bash
