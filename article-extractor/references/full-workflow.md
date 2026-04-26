@@ -26,18 +26,49 @@ case $TOOL in
         trafilatura --URL "$ARTICLE_URL" --output-format txt --no-comments > temp_article.txt
         ;;
     fallback)
-        TITLE=$(curl -s "$ARTICLE_URL" | grep -oP '<title>\K[^<]+' | head -n 1)
+        # Portable across BSD/GNU grep (avoid grep -oP)
+        TITLE=$(curl -s "$ARTICLE_URL" \
+          | sed -n 's|.*<title[^>]*>\([^<]*\)</title>.*|\1|p' \
+          | head -n 1)
         TITLE=${TITLE%% - *}
         TITLE=${TITLE%% | *}
-        # See method-fallback.md for the inline Python parser
-        curl -s "$ARTICLE_URL" | python3 ARTICLE_PARSER.py > temp_article.txt
+        curl -s "$ARTICLE_URL" | python3 -c "
+from html.parser import HTMLParser
+import sys
+
+class ArticleExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.in_content = False
+        self.content = []
+        self.skip_tags = {'script', 'style', 'nav', 'header', 'footer', 'aside', 'form'}
+
+    def handle_starttag(self, tag, attrs):
+        if tag not in self.skip_tags and tag in {'p', 'article', 'main', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'}:
+            self.in_content = True
+
+    def handle_data(self, data):
+        if self.in_content and data.strip():
+            self.content.append(data.strip())
+
+    def get_content(self):
+        return '\n\n'.join(self.content)
+
+parser = ArticleExtractor()
+parser.feed(sys.stdin.read())
+print(parser.get_content())
+" > temp_article.txt
         ;;
 esac
+
+# Fallback if title extraction failed
+[ -z "$TITLE" ] && TITLE="article"
 
 # Clean filename for filesystem
 FILENAME=$(echo "$TITLE" \
   | tr '/' '-' | tr ':' '-' | tr -d '?"<>' | tr '|' '-' \
   | cut -c 1-80 | sed 's/ *$//' | sed 's/^ *//')
+[ -z "$FILENAME" ] && FILENAME="article"
 FILENAME="${FILENAME}.txt"
 
 mv temp_article.txt "$FILENAME"

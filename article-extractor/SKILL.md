@@ -58,15 +58,35 @@ See [`references/method-fallback.md`](references/method-fallback.md) — uses `c
 
 For the full auto-detect + filename-cleanup script, see [`references/full-workflow.md`](references/full-workflow.md).
 
+## Output Contract
+
+The saved file should contain:
+
+- Article title (when the tool reports one)
+- Author and publish date (when available — `trafilatura` JSON, sometimes `reader`)
+- Main article text with section headings preserved
+
+The saved file should **not** contain:
+
+- Navigation menus, headers, footers
+- Ads and promotional content
+- Newsletter signup forms
+- Related-articles sidebars
+- Cookie / consent banners
+- Social-media buttons
+- Comment sections (suppress with `trafilatura --no-comments`)
+
+If the output contains any of the above, the extractor either picked the wrong method or the site is hostile to extraction (heavy JS, anti-scraping). Retry with the next tool in the priority chain or surface the failure.
+
 ## Verification
 
 After extraction, confirm all of:
 
 - [ ] Output file exists and is non-empty
-- [ ] First 10 lines look like article prose, not nav/ads/cookie banners
+- [ ] First 10 lines look like article prose, not nav/ads/cookie banners (matches the Output Contract above)
 - [ ] Title was extracted (filename is meaningful, not `Article.txt`)
 - [ ] Filename has no illegal characters (`/`, `:`, `?`, `"`, `<`, `>`, `|`)
-- [ ] Show the preview to the user; if it looks wrong, retry with the next tool in the priority chain
+- [ ] Show the preview to the user (first 10–15 lines). The standard report is: extracted title, save path, file size, then preview.
 
 If the site is a JavaScript SPA or requires authentication, all extractors will fail — tell the user explicitly rather than saving empty output.
 

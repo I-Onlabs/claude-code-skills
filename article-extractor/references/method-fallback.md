@@ -35,11 +35,17 @@ print(parser.get_content())
 
 ## Get title
 
+Portable across BSD `grep` (macOS) and GNU `grep` (Linux):
+
 ```bash
-TITLE=$(curl -s "URL" | grep -oP '<title>\K[^<]+' | head -n 1)
+TITLE=$(curl -s "URL" \
+  | sed -n 's|.*<title[^>]*>\([^<]*\)</title>.*|\1|p' \
+  | head -n 1)
 TITLE=${TITLE%% - *}   # strip "- Site Name"
 TITLE=${TITLE%% | *}   # strip "| Site Name"
 ```
+
+(GNU-only systems can use `grep -oP '<title>\K[^<]+'` instead.)
 
 ## Limitations
 
