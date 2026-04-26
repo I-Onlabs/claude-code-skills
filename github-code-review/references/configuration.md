@@ -143,6 +143,30 @@ jobs:
             --include-build-results
 ```
 
+## PR Description Template
+
+For repos that want every PR to declare its review intent up-front, drop this template at `.github/pull_request_template.md`. The swarm reads `Topology`, `Max Agents`, and `Review Focus Areas` directly from the PR body.
+
+```markdown
+<!-- .github/pull_request_template.md -->
+## Swarm Configuration
+- Topology: [mesh/hierarchical/ring/star]
+- Max Agents: [number]
+- Auto-spawn: [yes/no]
+- Priority: [high/medium/low]
+
+## Tasks for Swarm
+- [ ] Task 1 description
+- [ ] Task 2 description
+- [ ] Task 3 description
+
+## Review Focus Areas
+- [ ] Security review
+- [ ] Performance analysis
+- [ ] Architecture validation
+- [ ] Accessibility check
+```
+
 ## Auto-Merge When Ready
 
 ```bash

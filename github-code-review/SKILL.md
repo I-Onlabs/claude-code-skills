@@ -88,8 +88,24 @@ If a gate misfires, see [`references/troubleshooting.md`](references/troubleshoo
 
 - [`references/review-agents.md`](references/review-agents.md) — security / performance / architecture / style agent commands and templates
 - [`references/swarm-management.md`](references/swarm-management.md) — swarm creation, label routing, topology, comment commands, webhook handler
-- [`references/configuration.md`](references/configuration.md) — `review-swarm.yml`, custom triggers, GitHub Actions, auto-merge
+- [`references/configuration.md`](references/configuration.md) — `review-swarm.yml`, custom triggers, GitHub Actions, PR description template, auto-merge
 - [`references/comments-and-gates.md`](references/comments-and-gates.md) — inline comment generation, batch management, quality gates, metrics
 - [`references/advanced-features.md`](references/advanced-features.md) — context-aware review, learning, cross-PR analysis, custom agents
 - [`references/workflow-examples.md`](references/workflow-examples.md) — five worked examples + Claude Code integration pattern
-- [`references/troubleshooting.md`](references/troubleshooting.md) — agents not spawning, comments not posting, slow reviews, security checklist
+- [`references/troubleshooting.md`](references/troubleshooting.md) — agents not spawning, comments not posting, slow reviews, performance tips, webhook security caveats, security checklist
+
+## Related Skills
+
+- `github-pr-manager` — PR lifecycle management (open, label, merge)
+- `github-workflow-automation` — broader GitHub Actions automation
+- `swarm-coordination` — orchestration patterns shared across swarm-based skills
+
+## External Documentation
+
+- [GitHub CLI manual](https://cli.github.com/manual/)
+- [ruv-swarm](https://github.com/ruvnet/ruv-swarm)
+- [claude-flow](https://github.com/ruvnet/claude-flow)
+
+---
+
+*Maintained as part of the Claude Code Flow project. MIT licensed. Version 1.1.0.*
