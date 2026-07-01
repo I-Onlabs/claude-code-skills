@@ -1,0 +1,25 @@
+{
+  "_comment": "verify-before-flip state schema (Anthropic 'Effective Harnesses for Long-Running Agents', 2025-11-26). The mechanism credited with fixing BOTH over-ambition and premature-completion. Rules: (1) the coding agent may edit ONLY the 'passes' field; it must never remove or rewrite an entry. (2) a feature flips passes:false->true ONLY after END-TO-END verification, not when code is written. (3) work ONE feature at a time (lowest-index passes:false). JSON not Markdown on purpose: the model is less likely to overwrite JSON. Pair with logs/loop_history.jsonl for CAPC and with fabric_stop.py's premature-completion advisory (a 'done' claim while any passes:false remains is flagged).",
+  "schema_version": 1,
+  "project": "<name>",
+  "vision": "<one-line standing goal, re-read every iteration to resist goal-drift>",
+  "last_good_commit": "<short sha of last verified-clean state, for revert>",
+  "active_feature_id": "<id currently being worked — exactly one>",
+  "features": [
+    {
+      "id": "f001",
+      "category": "<area, e.g. auth | api | ui | infra>",
+      "priority": 1,
+      "description": "<what 'done' means for this single feature, objectively>",
+      "steps": [
+        "<ordered concrete step>",
+        "<...>"
+      ],
+      "verify": {
+        "command": "<exact command whose output proves the feature works end-to-end>",
+        "expected": "<the unforgeable signal: exit 0 / specific output / file count>"
+      },
+      "passes": false
+    }
+  ]
+}

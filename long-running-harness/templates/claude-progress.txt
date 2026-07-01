@@ -1,0 +1,16 @@
+# claude-progress.txt — the running cross-session work log (Anthropic durable-state harness).
+# The coding agent APPENDS one block per session and never rewrites history. This is read at the
+# start of every session (with `git log`) to reconstruct state WITHOUT re-exploring the codebase.
+# Keep entries terse and factual. The features.json file is the source of truth for "what's done";
+# this file is the source of truth for "what happened and what's next / what to watch out for".
+
+## Session 0 — <ISO timestamp> — INITIALIZER
+SCAFFOLD: wrote features.json (<N> features, all passes:false), init.sh, this file; initial commit <sha>.
+NEXT: highest-priority feature = <feature id / description>.
+
+## Session <N> — <ISO timestamp>
+WORKED ON: <single feature id + one-line description>
+RESULT: <passing | partial | reverted>   (commit <sha>)
+VERIFIED BY: <which features.json steps were run end-to-end, and what was observed>
+NEXT: <the next highest-priority passes:false feature>
+GOTCHAS: <anything the next session must NOT rediscover — env quirks, flaky paths, decisions made>
