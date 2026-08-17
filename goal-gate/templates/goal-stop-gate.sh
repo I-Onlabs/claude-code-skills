@@ -22,7 +22,10 @@
 #                             /goal users. Best-effort: a missing/failed update never blocks the
 #                             stop (same "observability, not a second gate" principle as
 #                             skills/router/SKILL.md's need-gate note and autonomous-skill's
-#                             _update_loop_spec_status()).
+#                             _update_loop_spec_status()) but IS logged to stderr on failure
+#                             (2026-08-17, gap-review G1) — mirrors run-session.sh's
+#                             _update_loop_spec_status(), which already logs; this script's
+#                             version previously swallowed the failure with no trace at all.
 #
 # Safety: respects `stop_hook_active` (blocks at most once per stop, never loops); fails OPEN — if the
 # verify command is unset or un-runnable, it ALLOWS the stop so a broken gate can't trap the session.
@@ -46,12 +49,14 @@ RC=$?
 
 if [ "$RC" -eq 0 ]; then
   if [ -n "${CLAUDE_GOAL_LOOP_SPEC_ID:-}" ]; then
-    python3 -c "
+    if ! python3 -c "
 import sys
 sys.path.insert(0, '$HOME/.claude/lib')
 import loop_spec_writer as lsw
 lsw.update_loop_spec_status(sys.argv[1], 'completed')
-" "$CLAUDE_GOAL_LOOP_SPEC_ID" 2>/dev/null || true
+" "$CLAUDE_GOAL_LOOP_SPEC_ID" 2>/dev/null; then
+      printf '[goal-gate] loop_spec update failed (id=%s -> completed) -- non-blocking\n' "$CLAUDE_GOAL_LOOP_SPEC_ID" >&2
+    fi
   fi
   exit 0   # genuinely done — allow the stop
 fi
