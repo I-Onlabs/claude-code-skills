@@ -12,8 +12,17 @@
 #       "timeout": 120000 } ] } ] } }
 #
 # Config:
-#   CLAUDE_GOAL_VERIFY_CMD  the command to run (required). exit 0 = done, non-zero = keep working.
-#   CLAUDE_GOAL_GATE_MODE   block (default) | observe (never blocks, just logs).
+#   CLAUDE_GOAL_VERIFY_CMD    the command to run (required). exit 0 = done, non-zero = keep working.
+#   CLAUDE_GOAL_GATE_MODE     block (default) | observe (never blocks, just logs).
+#   CLAUDE_GOAL_LOOP_SPEC_ID  optional (2026-08-16). A lib/loop_spec_writer.py loop_spec id to
+#                             mark "completed" the moment the verify command genuinely passes —
+#                             closes the loop-need-gate sequence-diagram audit's gap #4
+#                             (verification was recorded as data, never invoked as an event).
+#                             Unset = no-op; zero behavior change for existing non-loop_spec
+#                             /goal users. Best-effort: a missing/failed update never blocks the
+#                             stop (same "observability, not a second gate" principle as
+#                             skills/router/SKILL.md's need-gate note and autonomous-skill's
+#                             _update_loop_spec_status()).
 #
 # Safety: respects `stop_hook_active` (blocks at most once per stop, never loops); fails OPEN — if the
 # verify command is unset or un-runnable, it ALLOWS the stop so a broken gate can't trap the session.
@@ -36,6 +45,14 @@ OUT="$(bash -c "$CMD" 2>&1)"
 RC=$?
 
 if [ "$RC" -eq 0 ]; then
+  if [ -n "${CLAUDE_GOAL_LOOP_SPEC_ID:-}" ]; then
+    python3 -c "
+import sys
+sys.path.insert(0, '$HOME/.claude/lib')
+import loop_spec_writer as lsw
+lsw.update_loop_spec_status(sys.argv[1], 'completed')
+" "$CLAUDE_GOAL_LOOP_SPEC_ID" 2>/dev/null || true
+  fi
   exit 0   # genuinely done — allow the stop
 fi
 
