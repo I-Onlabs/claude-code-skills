@@ -29,7 +29,6 @@ cp -r claude-code-skills/api-design-patterns ~/.claude/skills/
 | Skill | Purpose | When It Activates |
 |-------|---------|------------------|
 | **systematic-debugging** | 4-phase debugging framework | Bug fixing, troubleshooting |
-| **test-driven-development** | RED-GREEN-REFACTOR cycle | Writing tests, TDD approach |
 | **task-tracking** | Auto todo management | Complex multi-step tasks (3+) |
 | **quality-gates** | Pre-completion verification | Before claiming work complete |
 | **verification-before-completion** | Prove success with evidence | Final validation |
@@ -60,9 +59,6 @@ cp -r claude-code-skills/api-design-patterns ~/.claude/skills/
 - `aws-cdk-development` - Infrastructure as Code with CDK
 - `aws-cost-operations` - Cost optimization and monitoring
 - `aws-serverless-eda` - Serverless patterns (Lambda, API Gateway, EventBridge)
-
-**Kubernetes:**
-- `kubernetes-patterns` - K8s best practices, deployment patterns
 
 **Web Frameworks:**
 - React, Next.js, Vue patterns
@@ -130,17 +126,6 @@ cp -r claude-code-skills/api-design-patterns ~/.claude/skills/
 - `csv-data-summarizer` - Quick data analysis
 - `meeting-insights-analyzer` - Extract insights from transcripts
 
-### 🚀 Advanced Orchestration
-
-**Complex multi-phase workflows**
-
-| Skill | Phases | Use For |
-|-------|--------|---------|
-| **hoa-orchestrator** | G0→G1→S→G2→G3→G4→M | Quality-gated deliverables with formal verification |
-| **vibe-coding-coordinator** | Preparation phase | Understanding vague requests |
-| **bootstrap-orchestrator** | Auto-configuration | New project initialization |
-| **task-orchestrator** | Task breakdown | Complex multi-task features |
-
 ## How Skills Work
 
 ### Auto-Activation
@@ -207,8 +192,7 @@ triggers:
 
 ### For APIs
 1. **api-design-patterns** - 5-layer structure
-2. **test-driven-development** - Test-first approach
-3. **quality-gates** - Pre-deployment checks
+2. **quality-gates** - Pre-deployment checks
 
 ### For Quality
 1. **verification-before-completion** - Prove success
