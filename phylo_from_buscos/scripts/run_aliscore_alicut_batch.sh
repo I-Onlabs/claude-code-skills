@@ -65,8 +65,8 @@ EOF
 ALIGNMENT_DIR=""
 OUTPUT_DIR="aliscore_alicut_trimmed"
 ALISCORE_BASE_DIR="aliscore_output"
-ALISCORE_OPTS=""
-ALICUT_OPTS="-s"  # Silent mode by default
+ALISCORE_ARGS=()
+ALICUT_ARGS=(-s)  # Silent mode by default
 
 if [ $# -eq 0 ]; then
     usage
@@ -96,27 +96,27 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         -w)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -w $2"
+            ALISCORE_ARGS+=(-w "$2")
             shift 2
             ;;
         -r)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -r $2"
+            ALISCORE_ARGS+=(-r "$2")
             shift 2
             ;;
         -N)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -N"
+            ALISCORE_ARGS+=(-N)
             shift
             ;;
         --remain-stems)
-            ALICUT_OPTS="${ALICUT_OPTS} -r"
+            ALICUT_ARGS+=(-r)
             shift
             ;;
         --remove-codon)
-            ALICUT_OPTS="${ALICUT_OPTS} -c"
+            ALICUT_ARGS+=(-c)
             shift
             ;;
         --remove-3rd)
-            ALICUT_OPTS="${ALICUT_OPTS} -3"
+            ALICUT_ARGS+=(-3)
             shift
             ;;
         *)
@@ -144,7 +144,10 @@ fi
 mkdir -p "${OUTPUT_DIR}"
 
 # Find all FASTA files
-ALIGNMENTS=($(find "${ALIGNMENT_DIR}" -maxdepth 1 -name "*.fas" -o -name "*.fasta"))
+ALIGNMENTS=()
+while IFS= read -r -d '' alignment; do
+    ALIGNMENTS+=("${alignment}")
+done < <(find "${ALIGNMENT_DIR}" -maxdepth 1 -type f \( -name "*.fas" -o -name "*.fasta" \) -print0)
 
 if [ ${#ALIGNMENTS[@]} -eq 0 ]; then
     echo "ERROR: No FASTA files found in ${ALIGNMENT_DIR}"
@@ -152,8 +155,12 @@ if [ ${#ALIGNMENTS[@]} -eq 0 ]; then
 fi
 
 echo "Found ${#ALIGNMENTS[@]} alignments to process"
-echo "Aliscore options: ${ALISCORE_OPTS}"
-echo "ALICUT options: ${ALICUT_OPTS}"
+printf "Aliscore options:"
+printf " %q" "${ALISCORE_ARGS[@]}"
+printf "\n"
+printf "ALICUT options:"
+printf " %q" "${ALICUT_ARGS[@]}"
+printf "\n"
 echo ""
 
 # Initialize summary file
@@ -176,7 +183,7 @@ for ALIGNMENT in "${ALIGNMENTS[@]}"; do
     echo ""
     echo "Step 1/2: Running Aliscore..."
 
-    if bash "${RUN_ALISCORE}" "${ALIGNMENT}" -d "${ALISCORE_BASE_DIR}" ${ALISCORE_OPTS}; then
+    if bash "${RUN_ALISCORE}" "${ALIGNMENT}" -d "${ALISCORE_BASE_DIR}" "${ALISCORE_ARGS[@]}"; then
         echo "Aliscore completed for ${LOCUS}"
     else
         echo "ERROR: Aliscore failed for ${LOCUS}"
@@ -196,7 +203,7 @@ for ALIGNMENT in "${ALIGNMENTS[@]}"; do
         continue
     fi
 
-    if bash "${RUN_ALICUT}" "${ALISCORE_DIR}" ${ALICUT_OPTS}; then
+    if bash "${RUN_ALICUT}" "${ALISCORE_DIR}" "${ALICUT_ARGS[@]}"; then
         echo "ALICUT completed for ${LOCUS}"
     else
         echo "ERROR: ALICUT failed for ${LOCUS}"

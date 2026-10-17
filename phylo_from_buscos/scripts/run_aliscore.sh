@@ -34,7 +34,7 @@ if command -v Aliscore.02.2.pl &> /dev/null; then
 elif [ -f "${SCRIPT_DIR}/Aliscore.02.2.pl" ]; then
     ALISCORE_SCRIPT="${SCRIPT_DIR}/Aliscore.02.2.pl"
 elif [ -f "./Aliscore.02.2.pl" ]; then
-    ALISCORE_SCRIPT="./Aliscore.02.2.pl"
+    ALISCORE_SCRIPT="$(pwd)/Aliscore.02.2.pl"
 else
     echo "ERROR: Aliscore.02.2.pl not found in PATH, script directory, or current directory"
     echo "Please download from: https://www.zfmk.de/en/research/research-centres-and-groups/aliscore"
@@ -98,7 +98,7 @@ EOF
 
 # Parse command line arguments
 ALIGNMENT=""
-ALISCORE_OPTS=""
+ALISCORE_ARGS=()
 BASE_OUTPUT_DIR="aliscore_output"
 
 if [ $# -eq 0 ]; then
@@ -160,15 +160,15 @@ while [ $# -gt 0 ]; do
             shift 2
             ;;
         -w)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -w $2"
+            ALISCORE_ARGS+=(-w "$2")
             shift 2
             ;;
         -r)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -r $2"
+            ALISCORE_ARGS+=(-r "$2")
             shift 2
             ;;
         -N)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -N"
+            ALISCORE_ARGS+=(-N)
             shift
             ;;
         -t)
@@ -176,15 +176,15 @@ while [ $# -gt 0 ]; do
                 echo "ERROR: Tree file not found: $2"
                 exit 1
             fi
-            ALISCORE_OPTS="${ALISCORE_OPTS} -t $2"
+            ALISCORE_ARGS+=(-t "$2")
             shift 2
             ;;
         -l)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -l $2"
+            ALISCORE_ARGS+=(-l "$2")
             shift 2
             ;;
         -o)
-            ALISCORE_OPTS="${ALISCORE_OPTS} -o $2"
+            ALISCORE_ARGS+=(-o "$2")
             shift 2
             ;;
         *)
@@ -211,14 +211,19 @@ cd "${OUTPUT_DIR}"
 
 # Run Aliscore
 echo "Running Aliscore on ${ALIGNMENT}..."
-echo "Options: ${ALISCORE_OPTS}"
+printf "Options:"
+printf " %q" "${ALISCORE_ARGS[@]}"
+printf "\n"
 echo "Aliscore script: ${ALISCORE_SCRIPT}"
 
-# Construct and run Aliscore command
-ALISCORE_CMD="perl -I${SCRIPT_DIR} ${ALISCORE_SCRIPT} -i $(basename ${ALIGNMENT}) ${ALISCORE_OPTS}"
-echo "Command: ${ALISCORE_CMD}"
+# Invoke Perl with an argument array so file names and options remain data.
+ALISCORE_CMD=(perl "-I${SCRIPT_DIR}" "${ALISCORE_SCRIPT}" -i "$(basename -- "${ALIGNMENT}")")
+ALISCORE_CMD+=("${ALISCORE_ARGS[@]}")
+printf "Command:"
+printf " %q" "${ALISCORE_CMD[@]}"
+printf "\n"
 
-eval ${ALISCORE_CMD}
+"${ALISCORE_CMD[@]}"
 
 # Check if Aliscore completed successfully
 if [ $? -eq 0 ]; then
